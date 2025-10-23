@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kupa Desing | Contacto</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            padding: 3rem 1rem 1rem;
+        }
+        header img {
+            width: 130px;
+            height: auto;
+        }
+        h1 {
+            font-size: 2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        p {
+            max-width: 500px;
+            text-align: center;
+            font-size: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 90%;
+            max-width: 400px;
+        }
+        input, textarea {
+            padding: 0.8rem;
+            border: 1px solid #000;
+            font-size: 1rem;
+            outline: none;
+        }
+        button {
+            padding: 0.9rem;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #444;
+        }
+        footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .success-message, .error-message {
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        .success-message {
+            color: green;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="KD.png" alt="Kupa Desing Logo">
+        <h1>Kupa Desing</h1>
+        <p>Diseñadora gráfica especializada en <strong>branding</strong> y <strong>diseño editorial</strong>. Transformo ideas en identidades visuales con propósito y estilo.</p>
+    </header>
+
+    <form id="contact-form" action="https://formspree.io/f/mpwyknyo" method="POST">
+        <input type="text" name="name" placeholder="Tu nombre" required>
+        <input type="email" name="_replyto" placeholder="Tu correo electrónico" required>
+        <textarea name="message" rows="5" placeholder="Tu mensaje" required></textarea>
+        <button type="submit">Enviar mensaje</button>
+        <p class="success-message">✅ Mensaje enviado correctamente. ¡Gracias por contactarme!</p>
+        <p class="error-message">❌ Ocurrió un error. Intenta de nuevo más tarde.</p>
+    </form>
+
+    <footer>
+        <p>Seguime en <a href="https://www.instagram.com/kupa.desing" target="_blank">@kupa.desing</a></p>
+        <p>© 2025 Kupa Desing — Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('contact-form');
+        const successMessage = document.querySelector('.success-message');
+        const errorMessage = document.querySelector('.error-message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    form.reset();
+                } else {
+                    throw new Error('Error en el envío');
+                }
+            } catch (error) {
+                successMessage.style.display = 'none';
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
